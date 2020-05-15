@@ -492,7 +492,7 @@ fi
 
 ohai "Downloading and installing Homebrew..."
 (
-  cd "${HOMEBREW_SITORY}" >/dev/null || return
+  cd "${HOMEBREW_REPOSITORY}" >/dev/null || return
 
   # we do it in four steps to avoid merge errors when reinstalling
   execute "git" "init" "-q"
