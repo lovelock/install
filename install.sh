@@ -32,7 +32,7 @@ else
   GROUP="$(id -gn)"
   TOUCH="/bin/touch"
 fi
-BREW_REPO="https://github.com/Homebrew/brew"
+BREW_REPO="http://mirrors.ustc.edu.cn/brew.git"
 
 # TODO: bump version when new macOS is released
 MACOS_LATEST_SUPPORTED="10.15"
@@ -492,7 +492,7 @@ fi
 
 ohai "Downloading and installing Homebrew..."
 (
-  cd "${HOMEBREW_REPOSITORY}" >/dev/null || return
+  cd "${HOMEBREW_SITORY}" >/dev/null || return
 
   # we do it in four steps to avoid merge errors when reinstalling
   execute "git" "init" "-q"
@@ -510,8 +510,12 @@ ohai "Downloading and installing Homebrew..."
   execute "git" "reset" "--hard" "origin/master"
 
   execute "ln" "-sf" "${HOMEBREW_REPOSITORY}/bin/brew" "${HOMEBREW_PREFIX}/bin/brew"
+  
+  execute "cd" "${HOMEBREW_PREFIX}/Homebrew/Library/Taps/homebrew"
+  execute "git" "clone" "https://mirrors.ustc.edu.cn/homebrew-cask.git"
+  execute "git" "clone" "https://mirrors.ustc.edu.cn/homebrew-core.git"
 
-  execute "${HOMEBREW_PREFIX}/bin/brew" "update" "--force"
+  execute "${HOMEBREW_PREFIX}/bin/brew" "update" "--force" "-v"  
 )
 
 if [[ ":${PATH}:" != *":${HOMEBREW_PREFIX}/bin:"* ]]; then
