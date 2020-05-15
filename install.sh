@@ -516,6 +516,9 @@ ohai "Downloading and installing Homebrew..."
   execute "git" "clone" "https://mirrors.ustc.edu.cn/homebrew-core.git"
 
   execute "${HOMEBREW_PREFIX}/bin/brew" "update" "--force" "-v"  
+  
+  execute "echo" "export" "HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles" ">>" "~/.zshrc"
+  execute "source" "~/.zshrc"
 )
 
 if [[ ":${PATH}:" != *":${HOMEBREW_PREFIX}/bin:"* ]]; then
